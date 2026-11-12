@@ -9,9 +9,6 @@ class Partido {
   const Partido({required this.local, required this.visitante, required this.golesLocal, required this.golesVisitante});
 }
 
-Equipo buscarEquipo(String nombre) {
-  return equipos.firstWhere((e) => e.nombre == nombre);
-}
 
 final List<Partido> partidos = [
   Partido(

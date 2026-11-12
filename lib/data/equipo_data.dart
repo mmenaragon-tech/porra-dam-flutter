@@ -17,3 +17,7 @@ final List<Equipo> equipos = [
   const Equipo(nombre: 'Athletic Club', imagen: 'assets/images/ath.webp'),
   const Equipo(nombre: 'Celta de Vigo', imagen: 'assets/images/celta.webp'),
 ];
+
+Equipo buscarEquipo(String nombre) {
+  return equipos.firstWhere((e) => e.nombre == nombre);
+}

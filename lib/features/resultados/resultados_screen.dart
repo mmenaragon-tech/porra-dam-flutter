@@ -12,7 +12,7 @@ class PantallaResultados extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const CabeceraPrincipal(),
+        
         Expanded(
           child: Container(
             clipBehavior: Clip.antiAlias,
@@ -22,6 +22,7 @@ class PantallaResultados extends StatelessWidget {
             ),
             child: Column(
               children: [
+                const CabeceraPrincipal(),
                 Expanded(
                   child: ListView.separated(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -109,7 +110,7 @@ class CabeceraPrincipal extends StatelessWidget {
               const Text(
                 'Resultados',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
@@ -119,7 +120,10 @@ class CabeceraPrincipal extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(
+                    color: Colors.grey
+                  )
                 ),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
@@ -143,7 +147,7 @@ class CabeceraPrincipal extends StatelessWidget {
           const SizedBox(height: 2),
           const Text(
             'Resultados oficiales y puntos obtenidos',
-            style: TextStyle(color: Colors.white70, fontSize: 13),
+            style: TextStyle(color: Colors.black, fontSize: 13),
           ),
         ],
       ),

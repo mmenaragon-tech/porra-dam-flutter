@@ -68,7 +68,11 @@ class TarjetaResultado extends StatelessWidget {
 
     final Color fondo;
     final Color texto;
-    if (puntos == 0) {
+    if (porra == null) {
+      // Sin porra: neutro, para no confundirlo con un fallo
+      fondo = Colors.grey.shade200;
+      texto = Colors.black54;
+    } else if (puntos == 0) {
       fondo = Colors.red.shade50;
       texto = Colors.red.shade600;
     } else if (puntos >= 8) {
@@ -78,6 +82,10 @@ class TarjetaResultado extends StatelessWidget {
       fondo = Colors.grey.shade200;
       texto = Colors.black54;
     }
+
+    final textoPorra = porra == null
+        ? 'Sin porra'
+        : 'Tu porra: ${porra.golesLocal} - ${porra.golesVisitante}';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -98,7 +106,7 @@ class TarjetaResultado extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'Tu porra: ${porra.golesLocal} - ${porra.golesVisitante}',
+                    textoPorra,
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w500,

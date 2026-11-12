@@ -15,7 +15,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
 
   int _indiceSeleccionado = 0;
 
-  final List<Widget>_pantallas = [PantallaJornada(), PantallaClasificacion(), PantallaResultados()];
+  final List<Widget>_pantallas = [PantallaJornada(), PantallaResultados(), PantallaClasificacion()];
 
   void _cambiar(int index) {
     setState(() {
@@ -51,12 +51,12 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                 label: "Jornada",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.leaderboard),
-                label: "Clasificación",
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.workspace_premium),
                 label: "Resultados",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.leaderboard),
+                label: "Clasificación",
               )
             ],
           ),
