@@ -19,22 +19,7 @@ class Resultado {
     return null;
   }
 
-  int get puntos {
-    final porra = this.porra;
-    if (porra == null) return 0;
-
-    final gl = partido.golesLocal;
-    final gv = partido.golesVisitante;
-    final pl = porra.golesLocal;
-    final pv = porra.golesVisitante;
-
-    if (gl == pl && gv == pv) return 8;
-
-    int total = 0;
-    if ((gl - gv).sign == (pl - pv).sign) total += 4;
-    if (gl == pl) total += 2;
-    return total;
-  }
+  int get puntos => porra?.puntosContra(partido) ?? 0;
 }
 
 final List<Resultado> resultados = [
