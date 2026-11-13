@@ -92,7 +92,7 @@ class CabeceraBienvenida extends StatelessWidget {
           SizedBox(height: 2),
           Text(
             'Tu porra para esta jornada',
-            style: TextStyle(color: Colors.white70, fontSize: 13),
+            style: TextStyle(color: Colors.white, fontSize: 13),
           ),
           SizedBox(height: 12),
           Row(

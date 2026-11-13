@@ -10,7 +10,7 @@ class Usuario {
   const Usuario({required this.nombre, required this.porras, this.puntosAcumulados = 0});
 
   int get puntos {
-    int total = 0;
+    int total = puntosAcumulados;
     for (final porra in porras) {
       for (final partido in partidos) {
         if (porra.local.nombre == partido.local.nombre &&

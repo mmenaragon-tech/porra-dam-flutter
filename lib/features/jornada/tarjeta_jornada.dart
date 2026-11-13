@@ -19,6 +19,12 @@ class _TarjetaJornadaState extends State<TarjetaJornada> {
     setState(() {
       _golesLocal = local ?? _golesLocal;
       _golesVisitante = visitante ?? _golesVisitante;
+      if (_golesLocal >= 10) {
+        _golesLocal = _golesLocal - 1;
+      }
+      if (_golesVisitante >= 10) {
+        _golesVisitante = _golesVisitante - 1;
+      }
     });
   }
 
@@ -61,46 +67,70 @@ class ContadorGoles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borde = Border.all(color: Colors.grey.shade300);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: goles > 0 ? () => onChanged(goles - 1) : null,
-          child: Container(
+        Center(
+          child: SizedBox(
             width: 64,
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            decoration: BoxDecoration(
-              border: borde,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('$goles',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                const SizedBox(width: 6),
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 18,
-                  color: goles > 0 ? Colors.grey.shade700 : Colors.grey.shade400,
+            height: 32,
+            child: IconButton(
+              onPressed: goles > 0 ? () => onChanged(goles - 1) : null,
+              padding: EdgeInsets.zero,
+              style: IconButton.styleFrom(
+                minimumSize: Size.zero,
+                fixedSize: const Size(64, 32),
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                visualDensity: VisualDensity.compact,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: Colors.grey.shade300),
                 ),
-              ],
+              ),
+              icon: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('$goles',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      )),
+                  const SizedBox(width: 6),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    size: 18,
+                    color: goles > 0 ? Colors.grey.shade700 : Colors.grey.shade400,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         const SizedBox(width: 8),
-        InkWell(
-          customBorder: const CircleBorder(),
-          onTap: () => onChanged(goles + 1),
-          child: Container(
+        Center(
+          child: SizedBox(
             width: 32,
             height: 32,
-            decoration: BoxDecoration(shape: BoxShape.circle, border: borde),
-            child: Icon(Icons.keyboard_arrow_up, size: 18, color: Colors.grey.shade700),
+            child: IconButton(
+              onPressed: goles < 9 ? () => onChanged(goles + 1) : null,
+              icon: Icon(Icons.keyboard_arrow_up, size: 18, color: goles > 8 ? Colors.grey.shade400 : Colors.grey.shade700),
+              padding: EdgeInsets.zero,
+              style: IconButton.styleFrom(
+                minimumSize: Size.zero,
+                fixedSize: const Size(32, 32),
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                visualDensity: VisualDensity.compact,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Colors.grey.shade300),
+                ),
+              ),
+            ),
           ),
-        ),
+        )
       ],
     );
   }

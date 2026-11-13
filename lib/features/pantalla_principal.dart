@@ -3,6 +3,7 @@ import 'package:porra_dam/features/clasificacion/clasificacion_screen.dart';
 import 'package:porra_dam/features/jornada/jornada_screen.dart';
 import 'package:porra_dam/features/resultados/resultados_screen.dart';
 import 'package:porra_dam/utils/fondo_pantalla.dart';
+import 'package:porra_dam/data/usuario_data.dart';
 
 class PantallaPrincipal extends StatefulWidget {
   const new({super.key});
@@ -34,10 +35,27 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text("Porra DAM"),
+            title: Center(child: 
+              Text(
+                "Porra DAM", 
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ),
             backgroundColor: Colors.transparent,
             foregroundColor: Colors.white,
             elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => Navigator.pop(context),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Center(child: CajaPuntos(puntos: usuarioActual.puntos)),
+              ),
+            ],
           ),
           body: _pantallas[_indiceSeleccionado],
           bottomNavigationBar: BottomNavigationBar(
@@ -62,6 +80,31 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CajaPuntos extends StatelessWidget {
+  final int puntos;
+  const CajaPuntos({super.key, required this.puntos});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE8F5E9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFA5D6A7)),
+      ),
+      child: Text(
+        '$puntos pts',
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF2E7D32),
+        ),
+      ),
     );
   }
 }

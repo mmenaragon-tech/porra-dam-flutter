@@ -6,7 +6,7 @@ class ListaClasificacion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lista = clasificacion; // se ordena una sola vez por build
+    final lista = clasificacion;
 
     return ListView.builder(
       itemCount: lista.length,
@@ -40,33 +40,37 @@ class FilaClasificacion extends StatelessWidget {
 
     return Container(
       color: esActual ? const Color(0xFFE8F5E9) : null,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.fromLTRB(28, 10, 36, 10),
       child: Row(
         children: [
           SizedBox(
-            width: 32,
+            width: 52,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Posicion(posicion: posicion),
             ),
           ),
-          CircleAvatar(
-            radius: 18,
-            backgroundColor: Colors.grey.shade300,
-            child: Text(
-              usuario.nombre[0].toUpperCase(),
-              style: const TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              nombre,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.grey.shade300,
+                  child: Text(
+                    usuario.nombre[0].toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  nombre,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600), 
+                ),
+              ],
             ),
           ),
           Text(
@@ -88,22 +92,13 @@ class Posicion extends StatelessWidget {
     (Color(0xFFFFF3C4), Color(0xFFE0A800), Color(0xFFB38600)),
     (Color(0xFFEDEDED), Color(0xFF9E9E9E), Color(0xFF616161)),
     (Color(0xFFF8E0CC), Color(0xFFCD7F32), Color(0xFF8D5524)),
+    (Colors.transparent, Colors.transparent, Color(0xFF757575)),
   ];
 
   @override
   Widget build(BuildContext context) {
-    if (posicion > 3) {
-      return Text(
-        '$posicion',
-        style: const TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-          color: Color(0xFF757575),
-        ),
-      );
-    }
 
-    final (fondo, borde, texto) = _medallas[posicion - 1];
+    final (fondo, borde, texto) = posicion < 4 ? _medallas[posicion - 1] : _medallas[3];
 
     return Container(
       width: 26,
