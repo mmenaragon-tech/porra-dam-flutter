@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:porra_dam/features/pantalla_principal.dart';
 import 'package:porra_dam/utils/fondo_pantalla.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:porra_dam/features/bienvenida/alias_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class PantallaBienvenida extends StatelessWidget {
   const PantallaBienvenida({super.key});
@@ -82,14 +84,14 @@ class CabeceraBienvenida extends StatelessWidget {
   }
 }
 
-class FormularioAcceso extends StatefulWidget {
+class FormularioAcceso extends ConsumerStatefulWidget {
   const FormularioAcceso({super.key});
 
   @override
-  State<FormularioAcceso> createState() => _FormularioAccesoState();
+  ConsumerState<FormularioAcceso> createState() => _FormularioAccesoState();
 }
 
-class _FormularioAccesoState extends State<FormularioAcceso> {
+class _FormularioAccesoState extends ConsumerState<FormularioAcceso> {
   final _formKey = GlobalKey<FormState>();
   final _aliasCtrl = TextEditingController();
   final _grupoCtrl = TextEditingController();
@@ -126,10 +128,8 @@ class _FormularioAccesoState extends State<FormularioAcceso> {
 
   void _entrar() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const PantallaPrincipal()),
-      );
+      ref.read(aliasProvider.notifier).guardar(_aliasCtrl.text.trim());
+      context.go('/jornada');
     }
   }
 
