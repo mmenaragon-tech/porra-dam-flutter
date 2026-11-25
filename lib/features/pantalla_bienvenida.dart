@@ -82,8 +82,56 @@ class CabeceraBienvenida extends StatelessWidget {
   }
 }
 
-class FormularioAcceso extends StatelessWidget {
+class FormularioAcceso extends StatefulWidget {
   const FormularioAcceso({super.key});
+
+  @override
+  State<FormularioAcceso> createState() => _FormularioAccesoState();
+}
+
+class _FormularioAccesoState extends State<FormularioAcceso> {
+  final _formKey = GlobalKey<FormState>();
+  final _aliasCtrl = TextEditingController();
+  final _grupoCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    _aliasCtrl.dispose();
+    _grupoCtrl.dispose();
+    super.dispose();
+  }
+
+  String? _validarAlias(String? valor) {
+    final alias = valor?.trim() ?? '';
+    if (alias.isEmpty) return 'Escribe un alias';
+    if (alias.length < 3) return 'Mínimo 3 caracteres';
+    if (alias.length > 15) return 'Máximo 15 caracteres';
+    return null;
+  }
+
+  String? _validarGrupo(String? valor) {
+    final sala = valor?.trim().replaceAll(' ', '').toLowerCase() ?? '';
+    if (sala.isEmpty) return 'Escribe el nombre del grupo';
+    if (sala.length < 10) return 'La sala introducida no es válida';
+    final grupo = sala.substring(0, 2);
+    final gruposValidos = ['1a', '1b', '2a'];
+    if (!gruposValidos.contains(grupo)) return 'La sala introducida no es válida';
+    final anio = sala.substring(sala.length - 4);
+    final anioNum = int.tryParse(anio);
+    if (anioNum == null || anioNum > 2026) {
+      return 'La sala introducida no es válida';
+    }
+    return null;
+  }
+
+  void _entrar() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const PantallaPrincipal()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,22 +139,31 @@ class FormularioAcceso extends StatelessWidget {
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: const [
-            CampoTexto(
-              etiqueta: "TU ALIAS",
-              hint: "Escribe tu nombre o alias",
-              icono: Icons.person_outline,
-            ),
-            SizedBox(height: 15),
-            CampoTexto(
-              etiqueta: "CÓDIGO DEL GRUPO",
-              hint: "p. ej. 1A - DAM - 2026",
-              icono: Icons.person_outline,
-            ),
-            SizedBox(height: 20),
-            BotonEntrar(),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              CampoTexto(
+                etiqueta: "TU ALIAS",
+                hint: "Escribe tu nombre o alias",
+                icono: Icons.person_outline,
+                controller: _aliasCtrl,
+                validator: _validarAlias,
+                accion: TextInputAction.next,
+              ),
+              const SizedBox(height: 15),
+              CampoTexto(
+                etiqueta: "CÓDIGO DEL GRUPO",
+                hint: "p. ej. 1A - DAM - 2026",
+                icono: Icons.groups_outlined,
+                controller: _grupoCtrl,
+                validator: _validarGrupo,
+                accion: TextInputAction.done,
+              ),
+              const SizedBox(height: 20),
+              BotonEntrar(onPressed: _entrar),
+            ],
+          ),
         ),
       ),
     );
@@ -117,21 +174,36 @@ class CampoTexto extends StatelessWidget {
   final String etiqueta;
   final String hint;
   final IconData icono;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final TextInputAction? accion;
+  final ValueChanged<String>? onSubmitted;
 
   const CampoTexto({
     super.key,
     required this.etiqueta,
     required this.hint,
     required this.icono,
+    required this.controller,
+    this.validator,
+    this.accion,
+    this.onSubmitted,
   });
 
   @override
   Widget build(BuildContext context) {
+    OutlineInputBorder borde(Color? color) => OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: color == null
+              ? BorderSide.none
+              : BorderSide(color: color, width: 1.5),
+        );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+          padding: const EdgeInsets.only(bottom: 8),
           child: Text(
             etiqueta,
             style: const TextStyle(
@@ -142,7 +214,11 @@ class CampoTexto extends StatelessWidget {
             ),
           ),
         ),
-        TextField(
+        TextFormField(
+          controller: controller,
+          validator: validator,
+          textInputAction: accion,
+          onFieldSubmitted: onSubmitted,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Colors.black38),
@@ -150,13 +226,11 @@ class CampoTexto extends StatelessWidget {
             filled: true,
             fillColor: const Color(0xFFF1F5F9),
             contentPadding: const EdgeInsets.symmetric(vertical: 16),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            border: borde(null),
+            enabledBorder: borde(null),
+            focusedBorder: borde(Colors.black54),
+            errorBorder: borde(Colors.red.shade400),
+            focusedErrorBorder: borde(Colors.red.shade400),
           ),
         ),
       ],
@@ -165,7 +239,8 @@ class CampoTexto extends StatelessWidget {
 }
 
 class BotonEntrar extends StatelessWidget {
-  const BotonEntrar({super.key});
+  final VoidCallback onPressed;
+  const BotonEntrar({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -173,12 +248,7 @@ class BotonEntrar extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const PantallaPrincipal()),
-          );
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,

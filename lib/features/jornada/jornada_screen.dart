@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:porra_dam/data/equipo.dart';
 import 'package:porra_dam/features/jornada/tarjeta_jornada.dart';
+import 'package:porra_dam/data/jornada.dart';
 
 class PantallaJornada extends StatefulWidget {
   const PantallaJornada({super.key});
@@ -12,10 +12,12 @@ class PantallaJornada extends StatefulWidget {
 class _PantallaJornadaState extends State<PantallaJornada> {
   @override
   Widget build(BuildContext context) {
+    final jornada = jornadas.first;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const CabeceraBienvenida(),
+        CabeceraBienvenida(jornada: jornada),
         Expanded(
           child: Container(
             clipBehavior: Clip.antiAlias,
@@ -25,7 +27,7 @@ class _PantallaJornadaState extends State<PantallaJornada> {
             ),
             child: Column(
               children: [
-                const Expanded(child: PartidosJornada()),
+                Expanded(child: PartidosJornada(jornada: jornada)),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                   child: FilledButton(
@@ -76,33 +78,47 @@ class PuntosTotales extends StatelessWidget {
 }
 
 class CabeceraBienvenida extends StatelessWidget {
-  const CabeceraBienvenida({super.key});
+  final Jornada jornada;
+  const CabeceraBienvenida({super.key, required this.jornada});
+
+  static const _dias = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  static const _meses = [
+    'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+    'jul', 'ago', 'sep', 'oct', 'nov', 'dic',
+  ];
+
+  String _formatear(DateTime f) {
+    final hora = f.hour.toString().padLeft(2, '0');
+    final min = f.minute.toString().padLeft(2, '0');
+    return '${_dias[f.weekday - 1]} ${f.day} ${_meses[f.month - 1]} - $hora:$min';
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Jornada 1',
-            style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+            'Jornada ${jornada.numero}',
+            style: const TextStyle(
+                color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 2),
-          Text(
+          const SizedBox(height: 2),
+          const Text(
             'Tu porra para esta jornada',
             style: TextStyle(color: Colors.white, fontSize: 13),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.calendar_month, color: Colors.white, size: 14),
-              SizedBox(width: 6),
+              const Icon(Icons.calendar_month, color: Colors.white, size: 14),
+              const SizedBox(width: 6),
               Text(
-                'Se cierra el: Sáb 12 oct - 16:00',
-                style: TextStyle(color: Colors.white, fontSize: 13),
+                'Se cierra el: ${_formatear(jornada.cierre)}',
+                style: const TextStyle(color: Colors.white, fontSize: 13),
               ),
             ],
           ),
@@ -113,19 +129,20 @@ class CabeceraBienvenida extends StatelessWidget {
 }
 
 class PartidosJornada extends StatelessWidget {
-  const PartidosJornada({super.key});
+  final Jornada jornada;
+  const PartidosJornada({super.key, required this.jornada});
 
   @override
   Widget build(BuildContext context) {
+    final partidos = jornada.partidos;
+
     return ListView.separated(
       padding: const EdgeInsets.only(top: 8),
-      itemCount: equipos.length ~/ 2,
+      itemCount: partidos.length,
       separatorBuilder: (_, __) =>
           const Divider(height: 1, indent: 16, endIndent: 16),
-      itemBuilder: (context, index) => TarjetaJornada(
-        local: equipos[index * 2],
-        visitante: equipos[index * 2 + 1],
-      ),
+      itemBuilder: (context, index) =>
+          TarjetaJornada(partido: partidos[index]),
     );
   }
 }

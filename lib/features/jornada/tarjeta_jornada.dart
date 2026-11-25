@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:porra_dam/data/equipo.dart';
+import 'package:porra_dam/data/partido.dart';
 
 class TarjetaJornada extends StatefulWidget {
-  final Equipo local;
-  final Equipo visitante;
-  const TarjetaJornada({super.key, required this.local, required this.visitante});
+  final Partido partido;
+  const TarjetaJornada({super.key, required this.partido});
 
   @override
   State<TarjetaJornada> createState() => _TarjetaJornadaState();
@@ -36,7 +36,7 @@ Widget build(BuildContext context) {
       children: [
         Row(
           children: [
-            Expanded(child: TarjetaPartido(equipo: widget.local)),
+            Expanded(child: TarjetaPartido(equipo: widget.partido.local)),
             ContadorGoles(
               goles: _golesLocal,
               onChanged: (g) => _cambiar(local: g),
@@ -46,7 +46,7 @@ Widget build(BuildContext context) {
         const SizedBox(height: 8),
         Row(
           children: [
-            Expanded(child: TarjetaPartido(equipo: widget.visitante)),
+            Expanded(child: TarjetaPartido(equipo: widget.partido.visitante)),
             ContadorGoles(
               goles: _golesVisitante,
               onChanged: (g) => _cambiar(visitante: g),

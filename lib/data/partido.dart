@@ -21,6 +21,8 @@ class Partido {
     fecha: json['fecha'],
     hora: json['hora'],
   );
+
+  DateTime get fechaHora => DateTime.parse('${fecha}T$hora:00');
 }
 
 List<Partido> partidos = [];

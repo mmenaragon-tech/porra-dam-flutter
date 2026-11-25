@@ -82,6 +82,11 @@ android/
   gradle.properties
   settings.gradle.kts
 assets/
+  data/
+    equipos.json
+    jornadas.json
+    pronosticos.json
+    usuarios.json
   fonts/
     lato-black.ttf
     roboto-regular.ttf
@@ -154,6 +159,7 @@ ios/
   .gitignore
 lib/
   data/
+    cargar_datos.dart
     equipo.dart
     jornada.dart
     partido.dart
@@ -484,6 +490,250 @@ plugins {
 }
 
 include(":app")
+</file>
+
+<file path="assets/data/equipos.json">
+{
+  "equipos": [
+    {"nombre": "Atlético Madrid", "imagen": "assets/images/atm.webp"},
+    {"nombre": "Real Madrid", "imagen": "assets/images/rm.webp"},
+    {"nombre": "FC Barcelona", "imagen": "assets/images/blc.webp"},
+    {"nombre": "Villarreal CF", "imagen": "assets/images/villa.webp"},
+    {"nombre": "Sevilla FC", "imagen": "assets/images/sev.webp"},
+    {"nombre": "Real Sociedad", "imagen": "assets/images/rs.webp"},
+    {"nombre": "Betis", "imagen": "assets/images/betis.webp"},
+    {"nombre": "Valencia CF", "imagen": "assets/images/vlc.webp"},
+    {"nombre": "Athletic Club", "imagen": "assets/images/ath.webp"},
+    {"nombre": "Celta de Vigo", "imagen": "assets/images/celta.webp"}
+  ]
+}
+</file>
+
+<file path="assets/data/jornadas.json">
+{
+  "jornadas": [
+    {
+      "numero": 1,
+      "partidos": [
+        {"id": 1, "local": "Atlético Madrid", "visitante": "Real Madrid", "golesLocal": 2, "golesVisitante": 1, "fecha": "2026-08-15", "hora": "21:00"},
+        {"id": 2, "local": "FC Barcelona", "visitante": "Villarreal CF", "golesLocal": 3, "golesVisitante": 0, "fecha": "2026-08-16", "hora": "19:00"},
+        {"id": 3, "local": "Sevilla FC", "visitante": "Real Sociedad", "golesLocal": 1, "golesVisitante": 1, "fecha": "2026-08-16", "hora": "17:00"},
+        {"id": 4, "local": "Betis", "visitante": "Valencia CF", "golesLocal": 2, "golesVisitante": 1, "fecha": "2026-08-17", "hora": "21:00"},
+        {"id": 5, "local": "Athletic Club", "visitante": "Celta de Vigo", "golesLocal": 1, "golesVisitante": 0, "fecha": "2026-08-17", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 2,
+      "partidos": [
+        {"id": 6, "local": "Real Madrid", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-22", "hora": "21:00"},
+        {"id": 7, "local": "Real Sociedad", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-23", "hora": "19:00"},
+        {"id": 8, "local": "Villarreal CF", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-23", "hora": "17:00"},
+        {"id": 9, "local": "Valencia CF", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-24", "hora": "21:00"},
+        {"id": 10, "local": "Celta de Vigo", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-24", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 3,
+      "partidos": [
+        {"id": 11, "local": "Atlético Madrid", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-29", "hora": "21:00"},
+        {"id": 12, "local": "Betis", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-30", "hora": "19:00"},
+        {"id": 13, "local": "Athletic Club", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-30", "hora": "17:00"},
+        {"id": 14, "local": "Sevilla FC", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-31", "hora": "21:00"},
+        {"id": 15, "local": "Villarreal CF", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2026-08-31", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 4,
+      "partidos": [
+        {"id": 16, "local": "Real Madrid", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-05", "hora": "21:00"},
+        {"id": 17, "local": "Real Sociedad", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-06", "hora": "19:00"},
+        {"id": 18, "local": "Valencia CF", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-06", "hora": "17:00"},
+        {"id": 19, "local": "Celta de Vigo", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-07", "hora": "21:00"},
+        {"id": 20, "local": "Sevilla FC", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-07", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 5,
+      "partidos": [
+        {"id": 21, "local": "Atlético Madrid", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-12", "hora": "21:00"},
+        {"id": 22, "local": "FC Barcelona", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-13", "hora": "19:00"},
+        {"id": 23, "local": "Villarreal CF", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-13", "hora": "17:00"},
+        {"id": 24, "local": "Betis", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-14", "hora": "21:00"},
+        {"id": 25, "local": "Real Sociedad", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-14", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 6,
+      "partidos": [
+        {"id": 26, "local": "Real Madrid", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-19", "hora": "21:00"},
+        {"id": 27, "local": "Celta de Vigo", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-20", "hora": "19:00"},
+        {"id": 28, "local": "Sevilla FC", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-20", "hora": "17:00"},
+        {"id": 29, "local": "Valencia CF", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-21", "hora": "21:00"},
+        {"id": 30, "local": "Athletic Club", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-21", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 7,
+      "partidos": [
+        {"id": 31, "local": "Atlético Madrid", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-26", "hora": "21:00"},
+        {"id": 32, "local": "Betis", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-27", "hora": "19:00"},
+        {"id": 33, "local": "Real Sociedad", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-27", "hora": "17:00"},
+        {"id": 34, "local": "Villarreal CF", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-28", "hora": "21:00"},
+        {"id": 35, "local": "Sevilla FC", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-09-28", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 8,
+      "partidos": [
+        {"id": 36, "local": "Real Madrid", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-03", "hora": "21:00"},
+        {"id": 37, "local": "Athletic Club", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-04", "hora": "19:00"},
+        {"id": 38, "local": "Celta de Vigo", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-04", "hora": "17:00"},
+        {"id": 39, "local": "Atlético Madrid", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-05", "hora": "21:00"},
+        {"id": 40, "local": "Real Sociedad", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-05", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 9,
+      "partidos": [
+        {"id": 41, "local": "Atlético Madrid", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-10", "hora": "21:00"},
+        {"id": 42, "local": "Villarreal CF", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-11", "hora": "19:00"},
+        {"id": 43, "local": "Sevilla FC", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-11", "hora": "17:00"},
+        {"id": 44, "local": "Valencia CF", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-12", "hora": "21:00"},
+        {"id": 45, "local": "FC Barcelona", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2026-10-12", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 10,
+      "partidos": [
+        {"id": 46, "local": "Real Madrid", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-09", "hora": "21:00"},
+        {"id": 47, "local": "Villarreal CF", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-10", "hora": "19:00"},
+        {"id": 48, "local": "Real Sociedad", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-10", "hora": "17:00"},
+        {"id": 49, "local": "Valencia CF", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-11", "hora": "21:00"},
+        {"id": 50, "local": "Celta de Vigo", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-11", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 11,
+      "partidos": [
+        {"id": 51, "local": "FC Barcelona", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-16", "hora": "21:00"},
+        {"id": 52, "local": "Atlético Madrid", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-17", "hora": "19:00"},
+        {"id": 53, "local": "Betis", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-17", "hora": "17:00"},
+        {"id": 54, "local": "Athletic Club", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-18", "hora": "21:00"},
+        {"id": 55, "local": "Sevilla FC", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-18", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 12,
+      "partidos": [
+        {"id": 56, "local": "FC Barcelona", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-23", "hora": "21:00"},
+        {"id": 57, "local": "Real Madrid", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-24", "hora": "19:00"},
+        {"id": 58, "local": "Real Sociedad", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-24", "hora": "17:00"},
+        {"id": 59, "local": "Valencia CF", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-25", "hora": "21:00"},
+        {"id": 60, "local": "Celta de Vigo", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-25", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 13,
+      "partidos": [
+        {"id": 61, "local": "Athletic Club", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-30", "hora": "21:00"},
+        {"id": 62, "local": "FC Barcelona", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-31", "hora": "19:00"},
+        {"id": 63, "local": "Atlético Madrid", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-01-31", "hora": "17:00"},
+        {"id": 64, "local": "Betis", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-01", "hora": "21:00"},
+        {"id": 65, "local": "Villarreal CF", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-01", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 14,
+      "partidos": [
+        {"id": 66, "local": "Athletic Club", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-06", "hora": "21:00"},
+        {"id": 67, "local": "Valencia CF", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-07", "hora": "19:00"},
+        {"id": 68, "local": "Real Madrid", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-07", "hora": "17:00"},
+        {"id": 69, "local": "Sevilla FC", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-08", "hora": "21:00"},
+        {"id": 70, "local": "Celta de Vigo", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-08", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 15,
+      "partidos": [
+        {"id": 71, "local": "Real Sociedad", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-13", "hora": "21:00"},
+        {"id": 72, "local": "FC Barcelona", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-14", "hora": "19:00"},
+        {"id": 73, "local": "Atlético Madrid", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-14", "hora": "17:00"},
+        {"id": 74, "local": "Villarreal CF", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-15", "hora": "21:00"},
+        {"id": 75, "local": "Betis", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-15", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 16,
+      "partidos": [
+        {"id": 76, "local": "Celta de Vigo", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-20", "hora": "21:00"},
+        {"id": 77, "local": "FC Barcelona", "visitante": "Betis", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-21", "hora": "19:00"},
+        {"id": 78, "local": "Valencia CF", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-21", "hora": "17:00"},
+        {"id": 79, "local": "Athletic Club", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-22", "hora": "21:00"},
+        {"id": 80, "local": "Real Madrid", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-22", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 17,
+      "partidos": [
+        {"id": 81, "local": "Valencia CF", "visitante": "Real Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-27", "hora": "21:00"},
+        {"id": 82, "local": "FC Barcelona", "visitante": "Athletic Club", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-28", "hora": "19:00"},
+        {"id": 83, "local": "Sevilla FC", "visitante": "Celta de Vigo", "golesLocal": null, "golesVisitante": null, "fecha": "2027-02-28", "hora": "17:00"},
+        {"id": 84, "local": "Villarreal CF", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-01", "hora": "21:00"},
+        {"id": 85, "local": "Betis", "visitante": "Real Sociedad", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-01", "hora": "19:00"}
+      ]
+    },
+    {
+      "numero": 18,
+      "partidos": [
+        {"id": 86, "local": "Betis", "visitante": "Atlético Madrid", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-06", "hora": "21:00"},
+        {"id": 87, "local": "Real Sociedad", "visitante": "Villarreal CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-07", "hora": "19:00"},
+        {"id": 88, "local": "Athletic Club", "visitante": "Sevilla FC", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-07", "hora": "17:00"},
+        {"id": 89, "local": "Celta de Vigo", "visitante": "Valencia CF", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-08", "hora": "21:00"},
+        {"id": 90, "local": "Real Madrid", "visitante": "FC Barcelona", "golesLocal": null, "golesVisitante": null, "fecha": "2027-03-08", "hora": "19:00"}
+      ]
+    }
+  ]
+}
+</file>
+
+<file path="assets/data/pronosticos.json">
+{
+  "pronosticos": [
+    {"partidoId": 0, "golesLocal": 2, "golesVisitante": 1},
+    {"partidoId": 1, "golesLocal": 2, "golesVisitante": 0},
+    {"partidoId": 2, "golesLocal": 1, "golesVisitante": 0},
+    {"partidoId": 3, "golesLocal": 1, "golesVisitante": 1},
+    {"partidoId": 4, "golesLocal": 1, "golesVisitante": 0}
+  ]
+}
+</file>
+
+<file path="assets/data/usuarios.json">
+{
+  "usuarios": [
+    {"id": 1, "nombre": "LUCÍA R.", "puntosAcumulados": 45, "porras": []},
+    {"id": 2, "nombre": "PabloDev", "puntosAcumulados": 41, "porras": []},
+    {"id": 3, "nombre": "Nerea_K", "puntosAcumulados": 40, "porras": []},
+    {
+      "id": 0,
+      "nombre": "mcoma",
+      "puntosAcumulados": 16,
+      "porras": [
+        {"partidoId": 1, "golesLocal": 2, "golesVisitante": 1},
+        {"partidoId": 2, "golesLocal": 2, "golesVisitante": 0},
+        {"partidoId": 3, "golesLocal": 1, "golesVisitante": 0},
+        {"partidoId": 4, "golesLocal": 1, "golesVisitante": 1},
+        {"partidoId": 5, "golesLocal": 1, "golesVisitante": 0}
+      ]
+    },
+    {"id": 5, "nombre": "Hugo M.", "puntosAcumulados": 35, "porras": []},
+    {"id": 6, "nombre": "Aitana", "puntosAcumulados": 33, "porras": []},
+    {"id": 7, "nombre": "xavier.dev", "puntosAcumulados": 30, "porras": []},
+    {"id": 8, "nombre": "Iván G.", "puntosAcumulados": 27, "porras": []},
+    {"id": 9, "nombre": "Sara P.", "puntosAcumulados": 26, "porras": []},
+    {"id": 10, "nombre": "Dani_804", "puntosAcumulados": 19, "porras": []}
+  ]
+}
 </file>
 
 <file path="ios/Flutter/AppFrameworkInfo.plist">
@@ -1742,6 +1992,25 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 </file>
 
+<file path="lib/data/cargar_datos.dart">
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:porra_dam/data/jornada.dart';
+import 'package:porra_dam/data/partido.dart';
+import 'package:porra_dam/data/usuario.dart';
+
+Future<void> cargarDatos() async {
+  final jornadasJson =
+      jsonDecode(await rootBundle.loadString('assets/data/jornadas.json'));
+  jornadas = [for (final j in jornadasJson['jornadas']) Jornada.fromJson(j)];
+  partidos = [for (final j in jornadas) ...j.partidos];
+
+  final usuariosJson =
+    jsonDecode(await rootBundle.loadString('assets/data/usuarios.json'));
+  usuarios = [for (final u in usuariosJson['usuarios']) Usuario.fromJson(u)];
+}
+</file>
+
 <file path="lib/data/equipo.dart">
 class Equipo {
   final String nombre;
@@ -1766,206 +2035,6 @@ final List<Equipo> equipos = [
 Equipo buscarEquipo(String nombre) {
   return equipos.firstWhere((e) => e.nombre == nombre);
 }
-</file>
-
-<file path="lib/data/jornada.dart">
-import 'partido.dart';
-
-class Jornada {
-  final List<Partido> partidos;
-  final String numero;
-
-  const Jornada({required this.partidos, required this.numero});
-
-}
-
-final List<Jornada> jornadas = [
-  Jornada(
-    numero: '1',
-    partidos: [
-      partidos[0],
-      partidos[1],
-      partidos[2],
-      partidos[3],
-      partidos[4],
-    ],
-  ),
-];
-</file>
-
-<file path="lib/data/partido.dart">
-import 'equipo.dart';
-
-class Partido {
-  final int id;
-  final Equipo local;
-  final Equipo visitante;
-  final int? golesLocal;
-  final int? golesVisitante;
-
-  const Partido({required this.id, required this.local, required this.visitante, required this.golesLocal, required this.golesVisitante});
-}
-
-final List<Partido> partidos = [
-  Partido(
-    id: 1,
-    local: buscarEquipo('Atlético Madrid'),
-    visitante: buscarEquipo('Real Madrid'),
-    golesLocal: 2,
-    golesVisitante: 1,
-  ),
-  Partido(
-    id: 2,
-    local: buscarEquipo('FC Barcelona'),
-    visitante: buscarEquipo('Villarreal CF'),
-    golesLocal: 3,
-    golesVisitante: 0,
-  ),
-  Partido(
-    id: 3,
-    local: buscarEquipo('Sevilla FC'),
-    visitante: buscarEquipo('Real Sociedad'),
-    golesLocal: 1,
-    golesVisitante: 1,
-  ),
-  Partido(
-    id: 4,
-    local: buscarEquipo('Betis'),
-    visitante: buscarEquipo('Valencia CF'),
-    golesLocal: 2,
-    golesVisitante: 1,
-  ),
-  Partido(
-    id: 5,
-    local: buscarEquipo('Athletic Club'),
-    visitante: buscarEquipo('Celta de Vigo'),
-    golesLocal: 1,
-    golesVisitante: 0,
-  ),
-];
-</file>
-
-<file path="lib/data/porra.dart">
-import 'partido.dart';
-
-class Porra {
-  final Partido partido;
-  final int? golesLocal;
-  final int? golesVisitante;
-
-  const Porra({required this.partido, required this.golesLocal, required this.golesVisitante});
-  
-
-  int puntosContra(Partido? partido) {
-    // Si no hay partido o todavía no hay resultado real,
-    // no se pueden calcular los puntos.
-    if (partido == null ||
-        partido.golesLocal == null ||
-        partido.golesVisitante == null ||
-        golesLocal == null ||
-        golesVisitante == null) {
-      return 0;
-    }
-
-    final gl = partido.golesLocal!;
-    final gv = partido.golesVisitante!;
-
-    if (gl == golesLocal && gv == golesVisitante) return 8;
-
-    int total = 0;
-
-    // Acierta el signo del resultado (victoria, empate o derrota).
-    if ((gl - gv).sign == (golesLocal! - golesVisitante!).sign) {
-      total += 4;
-    }
-
-    // Acierta los goles del equipo local.
-    if (gl == golesLocal) total += 2;
-
-    return total;
-  }
-
-  
-}
-</file>
-
-<file path="lib/data/usuario.dart">
-import 'package:porra_dam/data/porra.dart';
-import 'package:porra_dam/data/partido.dart';
-
-class Usuario {
-  final int id;
-  final String nombre;
-  final List<Porra> porras;
-  final int puntosAcumulados;
-
-  const Usuario({required this.id, required this.nombre, required this.porras, this.puntosAcumulados = 0});
-
-  int get puntos {
-    int total = puntosAcumulados;
-    for (final porra in porras) {
-      for (final partido in partidos) {
-        if (porra.partido.local.nombre == partido.local.nombre &&
-            porra.partido.visitante.nombre == partido.visitante.nombre) {
-          total += porra.puntosContra(partido);
-          break;
-        }
-      }
-    }
-    return total;
-  }
-
-  
-}
-
-final Usuario usuarioActual = Usuario(
-  id: 0,
-  nombre: 'mcoma',
-  porras: [
-    Porra(
-      partido: partidos[0],
-      golesLocal: 2,
-      golesVisitante: 1,
-    ),
-    Porra(
-      partido: partidos[1],
-      golesLocal: 2,
-      golesVisitante: 0,
-    ),
-    Porra(
-      partido: partidos[2],
-      golesLocal: 1,
-      golesVisitante: 0,
-    ),
-    Porra(
-      partido: partidos[3],
-      golesLocal: 1,
-      golesVisitante: 1,
-    ),
-    Porra(
-      partido: partidos[4],
-      golesLocal: 1,
-      golesVisitante: 0,
-    ),
-  ],
-  puntosAcumulados: 16,
-);
-
-final List<Usuario> usuarios = [
-  const Usuario(id: 1, nombre: 'LUCÍA R.', porras: [], puntosAcumulados: 45),
-  const Usuario(id: 2, nombre: 'PabloDev', porras: [], puntosAcumulados: 41),
-  const Usuario(id: 3, nombre: 'Nerea_K', porras: [], puntosAcumulados: 40),
-  usuarioActual,
-  const Usuario(id: 5, nombre: 'Hugo M.', porras: [], puntosAcumulados: 35),
-  const Usuario(id: 6, nombre: 'Aitana', porras: [], puntosAcumulados: 33),
-  const Usuario(id: 7, nombre: 'xavier.dev', porras: [], puntosAcumulados: 30),
-  const Usuario(id: 8, nombre: 'Iván G.', porras: [], puntosAcumulados: 27),
-  const Usuario(id: 9, nombre: 'Sara P.', porras: [], puntosAcumulados: 26),
-  const Usuario(id: 10, nombre: 'Dani_804', porras: [], puntosAcumulados: 19),
-];
-
-List<Usuario> get clasificacion =>
-    [...usuarios]..sort((a, b) => b.puntos.compareTo(a.puntos));
 </file>
 
 <file path="lib/features/pantalla_bienvenida.dart">
@@ -2053,8 +2122,56 @@ class CabeceraBienvenida extends StatelessWidget {
   }
 }
 
-class FormularioAcceso extends StatelessWidget {
+class FormularioAcceso extends StatefulWidget {
   const FormularioAcceso({super.key});
+
+  @override
+  State<FormularioAcceso> createState() => _FormularioAccesoState();
+}
+
+class _FormularioAccesoState extends State<FormularioAcceso> {
+  final _formKey = GlobalKey<FormState>();
+  final _aliasCtrl = TextEditingController();
+  final _grupoCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    _aliasCtrl.dispose();
+    _grupoCtrl.dispose();
+    super.dispose();
+  }
+
+  String? _validarAlias(String? valor) {
+    final alias = valor?.trim() ?? '';
+    if (alias.isEmpty) return 'Escribe un alias';
+    if (alias.length < 3) return 'Mínimo 3 caracteres';
+    if (alias.length > 15) return 'Máximo 15 caracteres';
+    return null;
+  }
+
+  String? _validarGrupo(String? valor) {
+    final sala = valor?.trim().replaceAll(' ', '').toLowerCase() ?? '';
+    if (sala.isEmpty) return 'Escribe el nombre del grupo';
+    if (sala.length < 10) return 'La sala introducida no es válida';
+    final grupo = sala.substring(0, 2);
+    final gruposValidos = ['1a', '1b', '2a'];
+    if (!gruposValidos.contains(grupo)) return 'La sala introducida no es válida';
+    final anio = sala.substring(sala.length - 4);
+    final anioNum = int.tryParse(anio);
+    if (anioNum == null || anioNum > 2026) {
+      return 'La sala introducida no es válida';
+    }
+    return null;
+  }
+
+  void _entrar() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const PantallaPrincipal()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -2062,22 +2179,31 @@ class FormularioAcceso extends StatelessWidget {
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: const [
-            CampoTexto(
-              etiqueta: "TU ALIAS",
-              hint: "Escribe tu nombre o alias",
-              icono: Icons.person_outline,
-            ),
-            SizedBox(height: 15),
-            CampoTexto(
-              etiqueta: "CÓDIGO DEL GRUPO",
-              hint: "p. ej. 1A - DAM - 2026",
-              icono: Icons.person_outline,
-            ),
-            SizedBox(height: 20),
-            BotonEntrar(),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              CampoTexto(
+                etiqueta: "TU ALIAS",
+                hint: "Escribe tu nombre o alias",
+                icono: Icons.person_outline,
+                controller: _aliasCtrl,
+                validator: _validarAlias,
+                accion: TextInputAction.next,
+              ),
+              const SizedBox(height: 15),
+              CampoTexto(
+                etiqueta: "CÓDIGO DEL GRUPO",
+                hint: "p. ej. 1A - DAM - 2026",
+                icono: Icons.groups_outlined,
+                controller: _grupoCtrl,
+                validator: _validarGrupo,
+                accion: TextInputAction.done,
+              ),
+              const SizedBox(height: 20),
+              BotonEntrar(onPressed: _entrar),
+            ],
+          ),
         ),
       ),
     );
@@ -2088,21 +2214,36 @@ class CampoTexto extends StatelessWidget {
   final String etiqueta;
   final String hint;
   final IconData icono;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final TextInputAction? accion;
+  final ValueChanged<String>? onSubmitted;
 
   const CampoTexto({
     super.key,
     required this.etiqueta,
     required this.hint,
     required this.icono,
+    required this.controller,
+    this.validator,
+    this.accion,
+    this.onSubmitted,
   });
 
   @override
   Widget build(BuildContext context) {
+    OutlineInputBorder borde(Color? color) => OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: color == null
+              ? BorderSide.none
+              : BorderSide(color: color, width: 1.5),
+        );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+          padding: const EdgeInsets.only(bottom: 8),
           child: Text(
             etiqueta,
             style: const TextStyle(
@@ -2113,7 +2254,11 @@ class CampoTexto extends StatelessWidget {
             ),
           ),
         ),
-        TextField(
+        TextFormField(
+          controller: controller,
+          validator: validator,
+          textInputAction: accion,
+          onFieldSubmitted: onSubmitted,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Colors.black38),
@@ -2121,13 +2266,11 @@ class CampoTexto extends StatelessWidget {
             filled: true,
             fillColor: const Color(0xFFF1F5F9),
             contentPadding: const EdgeInsets.symmetric(vertical: 16),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            border: borde(null),
+            enabledBorder: borde(null),
+            focusedBorder: borde(Colors.black54),
+            errorBorder: borde(Colors.red.shade400),
+            focusedErrorBorder: borde(Colors.red.shade400),
           ),
         ),
       ],
@@ -2136,7 +2279,8 @@ class CampoTexto extends StatelessWidget {
 }
 
 class BotonEntrar extends StatelessWidget {
-  const BotonEntrar({super.key});
+  final VoidCallback onPressed;
+  const BotonEntrar({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -2144,12 +2288,7 @@ class BotonEntrar extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const PantallaPrincipal()),
-          );
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
@@ -2174,37 +2313,6 @@ class FondoPantalla extends StatelessWidget {
       fit: BoxFit.cover,
       color: Colors.black.withValues(alpha: 0.4),
       colorBlendMode: BlendMode.darken,
-    );
-  }
-}
-</file>
-
-<file path="lib/main.dart">
-import 'package:flutter/material.dart';
-import '/features/pantalla_bienvenida.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      builder: (context, child) {
-        return ColoredBox(
-          color: Colors.grey.shade300, // color de los laterales
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: child,
-            ),
-          ),
-        );
-      },
-      home: const PantallaBienvenida(),
     );
   }
 }
@@ -2458,6 +2566,204 @@ linter:
 # https://dart.dev/guides/language/analysis-options
 </file>
 
+<file path="README.md">
+# porra_dam
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
+- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+</file>
+
+<file path="lib/data/jornada.dart">
+import 'partido.dart';
+
+class Jornada {
+  final List<Partido> partidos;
+  final String numero;
+
+  const Jornada({required this.partidos, required this.numero});
+
+  factory Jornada.fromJson(Map<String, dynamic> json) => Jornada(
+    numero: json['numero'].toString(),
+    partidos: [for (final p in json['partidos']) Partido.fromJson(p)],
+  );
+
+  DateTime get cierre =>
+    partidos.map((p) => p.fechaHora).reduce((a, b) => a.isBefore(b) ? a : b);
+}
+
+List<Jornada> jornadas = [];
+</file>
+
+<file path="lib/data/partido.dart">
+import 'equipo.dart';
+
+class Partido {
+  final int id;
+  final Equipo local;
+  final Equipo visitante;
+  final int? golesLocal;
+  final int? golesVisitante;
+  final String fecha;
+  final String hora;
+
+  const Partido({required this.id, required this.local, required this.visitante, required this.golesLocal, required this.golesVisitante, 
+  required this.fecha, required this.hora});
+
+  factory Partido.fromJson(Map<String, dynamic> json) => Partido(
+    id: json['id'],
+    local: buscarEquipo(json['local']),
+    visitante: buscarEquipo(json['visitante']),
+    golesLocal: json['golesLocal'],
+    golesVisitante: json['golesVisitante'],
+    fecha: json['fecha'],
+    hora: json['hora'],
+  );
+
+  DateTime get fechaHora => DateTime.parse('${fecha}T$hora:00');
+}
+
+List<Partido> partidos = [];
+</file>
+
+<file path="lib/data/porra.dart">
+import 'partido.dart';
+
+class Porra {
+  final Partido partido;
+  final int? golesLocal;
+  final int? golesVisitante;
+
+  const Porra({required this.partido, required this.golesLocal, required this.golesVisitante});
+  
+
+  int puntosContra(Partido? partido) {
+    // Si no hay partido o todavía no hay resultado real,
+    // no se pueden calcular los puntos.
+    if (partido == null ||
+        partido.golesLocal == null ||
+        partido.golesVisitante == null ||
+        golesLocal == null ||
+        golesVisitante == null) {
+      return 0;
+    }
+
+    final gl = partido.golesLocal!;
+    final gv = partido.golesVisitante!;
+
+    if (gl == golesLocal && gv == golesVisitante) return 8;
+
+    int total = 0;
+
+    // Acierta el signo del resultado (victoria, empate o derrota).
+    if ((gl - gv).sign == (golesLocal! - golesVisitante!).sign) {
+      total += 4;
+    }
+
+    // Acierta los goles del equipo local.
+    if (gl == golesLocal) total += 2;
+
+    return total;
+  }
+
+  factory Porra.fromJson(Map<String, dynamic> json) => Porra(
+    partido: partidos.firstWhere((p) => p.id == json['partidoId']),
+    golesLocal: json['golesLocal'],
+    golesVisitante: json['golesVisitante'],
+  );
+  
+}
+</file>
+
+<file path="lib/data/usuario.dart">
+import 'package:porra_dam/data/porra.dart';
+import 'package:porra_dam/data/partido.dart';
+
+class Usuario {
+  final int id;
+  final String nombre;
+  final List<Porra> porras;
+  final int puntosAcumulados;
+
+  const Usuario({required this.id, required this.nombre, required this.porras, this.puntosAcumulados = 0});
+
+  int get puntos {
+    int total = puntosAcumulados;
+    for (final porra in porras) {
+      for (final partido in partidos) {
+        if (porra.partido.local.nombre == partido.local.nombre &&
+            porra.partido.visitante.nombre == partido.visitante.nombre) {
+          total += porra.puntosContra(partido);
+          break;
+        }
+      }
+    }
+    return total;
+  }
+
+  factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
+    id: json['id'],
+    nombre: json['nombre'],
+    puntosAcumulados: json['puntosAcumulados'] ?? 0,
+    porras: [for (final p in json['porras']) Porra.fromJson(p)],
+  );
+  
+}
+
+List<Usuario> usuarios = [];
+
+Usuario get usuarioActual => usuarios.firstWhere((u) => u.id == 0);
+
+List<Usuario> get clasificacion =>
+    [...usuarios]..sort((a, b) => b.puntos.compareTo(a.puntos));
+</file>
+
+<file path="lib/main.dart">
+import 'package:flutter/material.dart';
+import '/features/pantalla_bienvenida.dart';
+import 'package:porra_dam/data/cargar_datos.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await cargarDatos();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: (context, child) {
+        return ColoredBox(
+          color: Colors.grey.shade300, // color de los laterales
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: child,
+            ),
+          ),
+        );
+      },
+      home: const PantallaBienvenida(),
+    );
+  }
+}
+</file>
+
 <file path="pubspec.lock">
 # Generated by pub
 # See https://dart.dev/tools/pub/glossary#lockfile
@@ -2588,10 +2894,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: c82594181e3312f3d0695fc95aaaf7758d75b8d4ae2bbecf223b9fd5109a059d
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.18.3"
+    version: "1.19.0"
   path:
     dependency: transitive
     description:
@@ -2657,18 +2963,18 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: "1d774bbdf6b72a0b12122fc1560c9c2d2a67db5a4a4cc2bd8a5c990ab20e3188"
+      sha256: fa49e1674cb84acb900141714e6c6e1f9ae099827c24d141430ff6819db4e1bc
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.4"
   vm_service:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "5f37239c4851efcef929cea7824e76df7f2f0970aef85d66bbc430afa40e72f0"
+      sha256: "89b11d62e1040ee681af3b4f1c97a803ecbf010c6e8b9c5896ee5b08c3bf7b78"
       url: "https://pub.dev"
     source: hosted
-    version: "15.3.0"
+    version: "15.4.0"
 sdks:
   dart: ">=3.13.3 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"
@@ -2737,7 +3043,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-  #   - images/a_dot_ham.jpeg
+    - assets/data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -2764,26 +3070,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-</file>
-
-<file path="README.md">
-# porra_dam
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 </file>
 
 <file path="lib/features/clasificacion/clasificacion_screen.dart">
@@ -3030,11 +3316,11 @@ class Posicion extends StatelessWidget {
 <file path="lib/features/jornada/tarjeta_jornada.dart">
 import 'package:flutter/material.dart';
 import 'package:porra_dam/data/equipo.dart';
+import 'package:porra_dam/data/partido.dart';
 
 class TarjetaJornada extends StatefulWidget {
-  final Equipo local;
-  final Equipo visitante;
-  const TarjetaJornada({super.key, required this.local, required this.visitante});
+  final Partido partido;
+  const TarjetaJornada({super.key, required this.partido});
 
   @override
   State<TarjetaJornada> createState() => _TarjetaJornadaState();
@@ -3066,7 +3352,7 @@ Widget build(BuildContext context) {
       children: [
         Row(
           children: [
-            Expanded(child: TarjetaPartido(equipo: widget.local)),
+            Expanded(child: TarjetaPartido(equipo: widget.partido.local)),
             ContadorGoles(
               goles: _golesLocal,
               onChanged: (g) => _cambiar(local: g),
@@ -3076,7 +3362,7 @@ Widget build(BuildContext context) {
         const SizedBox(height: 8),
         Row(
           children: [
-            Expanded(child: TarjetaPartido(equipo: widget.visitante)),
+            Expanded(child: TarjetaPartido(equipo: widget.partido.visitante)),
             ContadorGoles(
               goles: _golesVisitante,
               onChanged: (g) => _cambiar(visitante: g),
@@ -3355,8 +3641,8 @@ class TarjetaResultado extends StatelessWidget {
 
 <file path="lib/features/jornada/jornada_screen.dart">
 import 'package:flutter/material.dart';
-import 'package:porra_dam/data/equipo.dart';
 import 'package:porra_dam/features/jornada/tarjeta_jornada.dart';
+import 'package:porra_dam/data/jornada.dart';
 
 class PantallaJornada extends StatefulWidget {
   const PantallaJornada({super.key});
@@ -3368,10 +3654,12 @@ class PantallaJornada extends StatefulWidget {
 class _PantallaJornadaState extends State<PantallaJornada> {
   @override
   Widget build(BuildContext context) {
+    final jornada = jornadas.first;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const CabeceraBienvenida(),
+        CabeceraBienvenida(jornada: jornada),
         Expanded(
           child: Container(
             clipBehavior: Clip.antiAlias,
@@ -3381,7 +3669,7 @@ class _PantallaJornadaState extends State<PantallaJornada> {
             ),
             child: Column(
               children: [
-                const Expanded(child: PartidosJornada()),
+                Expanded(child: PartidosJornada(jornada: jornada)),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                   child: FilledButton(
@@ -3432,33 +3720,47 @@ class PuntosTotales extends StatelessWidget {
 }
 
 class CabeceraBienvenida extends StatelessWidget {
-  const CabeceraBienvenida({super.key});
+  final Jornada jornada;
+  const CabeceraBienvenida({super.key, required this.jornada});
+
+  static const _dias = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  static const _meses = [
+    'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+    'jul', 'ago', 'sep', 'oct', 'nov', 'dic',
+  ];
+
+  String _formatear(DateTime f) {
+    final hora = f.hour.toString().padLeft(2, '0');
+    final min = f.minute.toString().padLeft(2, '0');
+    return '${_dias[f.weekday - 1]} ${f.day} ${_meses[f.month - 1]} - $hora:$min';
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Jornada 1',
-            style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+            'Jornada ${jornada.numero}',
+            style: const TextStyle(
+                color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 2),
-          Text(
+          const SizedBox(height: 2),
+          const Text(
             'Tu porra para esta jornada',
             style: TextStyle(color: Colors.white, fontSize: 13),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.calendar_month, color: Colors.white, size: 14),
-              SizedBox(width: 6),
+              const Icon(Icons.calendar_month, color: Colors.white, size: 14),
+              const SizedBox(width: 6),
               Text(
-                'Se cierra el: Sáb 12 oct - 16:00',
-                style: TextStyle(color: Colors.white, fontSize: 13),
+                'Se cierra el: ${_formatear(jornada.cierre)}',
+                style: const TextStyle(color: Colors.white, fontSize: 13),
               ),
             ],
           ),
@@ -3469,19 +3771,20 @@ class CabeceraBienvenida extends StatelessWidget {
 }
 
 class PartidosJornada extends StatelessWidget {
-  const PartidosJornada({super.key});
+  final Jornada jornada;
+  const PartidosJornada({super.key, required this.jornada});
 
   @override
   Widget build(BuildContext context) {
+    final partidos = jornada.partidos;
+
     return ListView.separated(
       padding: const EdgeInsets.only(top: 8),
-      itemCount: equipos.length ~/ 2,
+      itemCount: partidos.length,
       separatorBuilder: (_, __) =>
           const Divider(height: 1, indent: 16, endIndent: 16),
-      itemBuilder: (context, index) => TarjetaJornada(
-        local: equipos[index * 2],
-        visitante: equipos[index * 2 + 1],
-      ),
+      itemBuilder: (context, index) =>
+          TarjetaJornada(partido: partidos[index]),
     );
   }
 }
