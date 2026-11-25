@@ -196,232 +196,6 @@ README.md
 <files>
 This section contains the contents of the repository's files.
 
-<file path="lib/data/equipo.dart">
-class Equipo {
-  final String nombre;
-  final String imagen;
-
-  const Equipo({required this.nombre, required this.imagen});
-}
-
-final List<Equipo> equipos = [
-  const Equipo(nombre: 'Atlético Madrid', imagen: 'assets/images/atm.webp'),
-  const Equipo(nombre: 'Real Madrid', imagen: 'assets/images/rm.webp'),
-  const Equipo(nombre: 'FC Barcelona', imagen: 'assets/images/blc.webp'),
-  const Equipo(nombre: 'Villarreal CF', imagen: 'assets/images/villa.webp'),
-  const Equipo(nombre: 'Sevilla FC', imagen: 'assets/images/sev.webp'),
-  const Equipo(nombre: 'Real Sociedad', imagen: 'assets/images/rs.webp'),
-  const Equipo(nombre: 'Betis', imagen: 'assets/images/betis.webp'),
-  const Equipo(nombre: 'Valencia CF', imagen: 'assets/images/vlc.webp'),
-  const Equipo(nombre: 'Athletic Club', imagen: 'assets/images/ath.webp'),
-  const Equipo(nombre: 'Celta de Vigo', imagen: 'assets/images/celta.webp'),
-];
-
-Equipo buscarEquipo(String nombre) {
-  return equipos.firstWhere((e) => e.nombre == nombre);
-}
-</file>
-
-<file path="lib/data/jornada.dart">
-import 'partido.dart';
-
-class Jornada {
-  final List<Partido> partidos;
-  final String numero;
-
-  const Jornada({required this.partidos, required this.numero});
-
-}
-
-final List<Jornada> jornadas = [
-  Jornada(
-    numero: '1',
-    partidos: [
-      partidos[0],
-      partidos[1],
-      partidos[2],
-      partidos[3],
-      partidos[4],
-    ],
-  ),
-];
-</file>
-
-<file path="lib/data/partido.dart">
-import 'equipo.dart';
-
-class Partido {
-  final int id;
-  final Equipo local;
-  final Equipo visitante;
-  final int? golesLocal;
-  final int? golesVisitante;
-
-  const Partido({required this.id, required this.local, required this.visitante, required this.golesLocal, required this.golesVisitante});
-}
-
-final List<Partido> partidos = [
-  Partido(
-    id: 1,
-    local: buscarEquipo('Atlético Madrid'),
-    visitante: buscarEquipo('Real Madrid'),
-    golesLocal: 2,
-    golesVisitante: 1,
-  ),
-  Partido(
-    id: 2,
-    local: buscarEquipo('FC Barcelona'),
-    visitante: buscarEquipo('Villarreal CF'),
-    golesLocal: 3,
-    golesVisitante: 0,
-  ),
-  Partido(
-    id: 3,
-    local: buscarEquipo('Sevilla FC'),
-    visitante: buscarEquipo('Real Sociedad'),
-    golesLocal: 1,
-    golesVisitante: 1,
-  ),
-  Partido(
-    id: 4,
-    local: buscarEquipo('Betis'),
-    visitante: buscarEquipo('Valencia CF'),
-    golesLocal: 2,
-    golesVisitante: 1,
-  ),
-  Partido(
-    id: 5,
-    local: buscarEquipo('Athletic Club'),
-    visitante: buscarEquipo('Celta de Vigo'),
-    golesLocal: 1,
-    golesVisitante: 0,
-  ),
-];
-</file>
-
-<file path="lib/data/porra.dart">
-import 'partido.dart';
-
-class Porra {
-  final Partido partido;
-  final int? golesLocal;
-  final int? golesVisitante;
-
-  const Porra({required this.partido, required this.golesLocal, required this.golesVisitante});
-  
-
-  int puntosContra(Partido? partido) {
-    // Si no hay partido o todavía no hay resultado real,
-    // no se pueden calcular los puntos.
-    if (partido == null ||
-        partido.golesLocal == null ||
-        partido.golesVisitante == null ||
-        golesLocal == null ||
-        golesVisitante == null) {
-      return 0;
-    }
-
-    final gl = partido.golesLocal!;
-    final gv = partido.golesVisitante!;
-
-    if (gl == golesLocal && gv == golesVisitante) return 8;
-
-    int total = 0;
-
-    // Acierta el signo del resultado (victoria, empate o derrota).
-    if ((gl - gv).sign == (golesLocal! - golesVisitante!).sign) {
-      total += 4;
-    }
-
-    // Acierta los goles del equipo local.
-    if (gl == golesLocal) total += 2;
-
-    return total;
-  }
-
-  
-}
-</file>
-
-<file path="lib/data/usuario.dart">
-import 'package:porra_dam/data/porra.dart';
-import 'package:porra_dam/data/partido.dart';
-
-class Usuario {
-  final int id;
-  final String nombre;
-  final List<Porra> porras;
-  final int puntosAcumulados;
-
-  const Usuario({required this.id, required this.nombre, required this.porras, this.puntosAcumulados = 0});
-
-  int get puntos {
-    int total = puntosAcumulados;
-    for (final porra in porras) {
-      for (final partido in partidos) {
-        if (porra.partido.local.nombre == partido.local.nombre &&
-            porra.partido.visitante.nombre == partido.visitante.nombre) {
-          total += porra.puntosContra(partido);
-          break;
-        }
-      }
-    }
-    return total;
-  }
-
-  
-}
-
-final Usuario usuarioActual = Usuario(
-  id: 0,
-  nombre: 'mcoma',
-  porras: [
-    Porra(
-      partido: partidos[0],
-      golesLocal: 2,
-      golesVisitante: 1,
-    ),
-    Porra(
-      partido: partidos[1],
-      golesLocal: 2,
-      golesVisitante: 0,
-    ),
-    Porra(
-      partido: partidos[2],
-      golesLocal: 1,
-      golesVisitante: 0,
-    ),
-    Porra(
-      partido: partidos[3],
-      golesLocal: 1,
-      golesVisitante: 1,
-    ),
-    Porra(
-      partido: partidos[4],
-      golesLocal: 1,
-      golesVisitante: 0,
-    ),
-  ],
-  puntosAcumulados: 16,
-);
-
-final List<Usuario> usuarios = [
-  const Usuario(id: 1, nombre: 'LUCÍA R.', porras: [], puntosAcumulados: 45),
-  const Usuario(id: 2, nombre: 'PabloDev', porras: [], puntosAcumulados: 41),
-  const Usuario(id: 3, nombre: 'Nerea_K', porras: [], puntosAcumulados: 40),
-  usuarioActual,
-  const Usuario(id: 5, nombre: 'Hugo M.', porras: [], puntosAcumulados: 35),
-  const Usuario(id: 6, nombre: 'Aitana', porras: [], puntosAcumulados: 33),
-  const Usuario(id: 7, nombre: 'xavier.dev', porras: [], puntosAcumulados: 30),
-  const Usuario(id: 8, nombre: 'Iván G.', porras: [], puntosAcumulados: 27),
-  const Usuario(id: 9, nombre: 'Sara P.', porras: [], puntosAcumulados: 26),
-  const Usuario(id: 10, nombre: 'Dani_804', porras: [], puntosAcumulados: 19),
-];
-
-List<Usuario> get clasificacion =>
-    [...usuarios]..sort((a, b) => b.puntos.compareTo(a.puntos));
-</file>
-
 <file path="android/app/src/debug/AndroidManifest.xml">
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- The INTERNET permission is required for development. Specifically,
@@ -1968,6 +1742,232 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 </file>
 
+<file path="lib/data/equipo.dart">
+class Equipo {
+  final String nombre;
+  final String imagen;
+
+  const Equipo({required this.nombre, required this.imagen});
+}
+
+final List<Equipo> equipos = [
+  const Equipo(nombre: 'Atlético Madrid', imagen: 'assets/images/atm.webp'),
+  const Equipo(nombre: 'Real Madrid', imagen: 'assets/images/rm.webp'),
+  const Equipo(nombre: 'FC Barcelona', imagen: 'assets/images/blc.webp'),
+  const Equipo(nombre: 'Villarreal CF', imagen: 'assets/images/villa.webp'),
+  const Equipo(nombre: 'Sevilla FC', imagen: 'assets/images/sev.webp'),
+  const Equipo(nombre: 'Real Sociedad', imagen: 'assets/images/rs.webp'),
+  const Equipo(nombre: 'Betis', imagen: 'assets/images/betis.webp'),
+  const Equipo(nombre: 'Valencia CF', imagen: 'assets/images/vlc.webp'),
+  const Equipo(nombre: 'Athletic Club', imagen: 'assets/images/ath.webp'),
+  const Equipo(nombre: 'Celta de Vigo', imagen: 'assets/images/celta.webp'),
+];
+
+Equipo buscarEquipo(String nombre) {
+  return equipos.firstWhere((e) => e.nombre == nombre);
+}
+</file>
+
+<file path="lib/data/jornada.dart">
+import 'partido.dart';
+
+class Jornada {
+  final List<Partido> partidos;
+  final String numero;
+
+  const Jornada({required this.partidos, required this.numero});
+
+}
+
+final List<Jornada> jornadas = [
+  Jornada(
+    numero: '1',
+    partidos: [
+      partidos[0],
+      partidos[1],
+      partidos[2],
+      partidos[3],
+      partidos[4],
+    ],
+  ),
+];
+</file>
+
+<file path="lib/data/partido.dart">
+import 'equipo.dart';
+
+class Partido {
+  final int id;
+  final Equipo local;
+  final Equipo visitante;
+  final int? golesLocal;
+  final int? golesVisitante;
+
+  const Partido({required this.id, required this.local, required this.visitante, required this.golesLocal, required this.golesVisitante});
+}
+
+final List<Partido> partidos = [
+  Partido(
+    id: 1,
+    local: buscarEquipo('Atlético Madrid'),
+    visitante: buscarEquipo('Real Madrid'),
+    golesLocal: 2,
+    golesVisitante: 1,
+  ),
+  Partido(
+    id: 2,
+    local: buscarEquipo('FC Barcelona'),
+    visitante: buscarEquipo('Villarreal CF'),
+    golesLocal: 3,
+    golesVisitante: 0,
+  ),
+  Partido(
+    id: 3,
+    local: buscarEquipo('Sevilla FC'),
+    visitante: buscarEquipo('Real Sociedad'),
+    golesLocal: 1,
+    golesVisitante: 1,
+  ),
+  Partido(
+    id: 4,
+    local: buscarEquipo('Betis'),
+    visitante: buscarEquipo('Valencia CF'),
+    golesLocal: 2,
+    golesVisitante: 1,
+  ),
+  Partido(
+    id: 5,
+    local: buscarEquipo('Athletic Club'),
+    visitante: buscarEquipo('Celta de Vigo'),
+    golesLocal: 1,
+    golesVisitante: 0,
+  ),
+];
+</file>
+
+<file path="lib/data/porra.dart">
+import 'partido.dart';
+
+class Porra {
+  final Partido partido;
+  final int? golesLocal;
+  final int? golesVisitante;
+
+  const Porra({required this.partido, required this.golesLocal, required this.golesVisitante});
+  
+
+  int puntosContra(Partido? partido) {
+    // Si no hay partido o todavía no hay resultado real,
+    // no se pueden calcular los puntos.
+    if (partido == null ||
+        partido.golesLocal == null ||
+        partido.golesVisitante == null ||
+        golesLocal == null ||
+        golesVisitante == null) {
+      return 0;
+    }
+
+    final gl = partido.golesLocal!;
+    final gv = partido.golesVisitante!;
+
+    if (gl == golesLocal && gv == golesVisitante) return 8;
+
+    int total = 0;
+
+    // Acierta el signo del resultado (victoria, empate o derrota).
+    if ((gl - gv).sign == (golesLocal! - golesVisitante!).sign) {
+      total += 4;
+    }
+
+    // Acierta los goles del equipo local.
+    if (gl == golesLocal) total += 2;
+
+    return total;
+  }
+
+  
+}
+</file>
+
+<file path="lib/data/usuario.dart">
+import 'package:porra_dam/data/porra.dart';
+import 'package:porra_dam/data/partido.dart';
+
+class Usuario {
+  final int id;
+  final String nombre;
+  final List<Porra> porras;
+  final int puntosAcumulados;
+
+  const Usuario({required this.id, required this.nombre, required this.porras, this.puntosAcumulados = 0});
+
+  int get puntos {
+    int total = puntosAcumulados;
+    for (final porra in porras) {
+      for (final partido in partidos) {
+        if (porra.partido.local.nombre == partido.local.nombre &&
+            porra.partido.visitante.nombre == partido.visitante.nombre) {
+          total += porra.puntosContra(partido);
+          break;
+        }
+      }
+    }
+    return total;
+  }
+
+  
+}
+
+final Usuario usuarioActual = Usuario(
+  id: 0,
+  nombre: 'mcoma',
+  porras: [
+    Porra(
+      partido: partidos[0],
+      golesLocal: 2,
+      golesVisitante: 1,
+    ),
+    Porra(
+      partido: partidos[1],
+      golesLocal: 2,
+      golesVisitante: 0,
+    ),
+    Porra(
+      partido: partidos[2],
+      golesLocal: 1,
+      golesVisitante: 0,
+    ),
+    Porra(
+      partido: partidos[3],
+      golesLocal: 1,
+      golesVisitante: 1,
+    ),
+    Porra(
+      partido: partidos[4],
+      golesLocal: 1,
+      golesVisitante: 0,
+    ),
+  ],
+  puntosAcumulados: 16,
+);
+
+final List<Usuario> usuarios = [
+  const Usuario(id: 1, nombre: 'LUCÍA R.', porras: [], puntosAcumulados: 45),
+  const Usuario(id: 2, nombre: 'PabloDev', porras: [], puntosAcumulados: 41),
+  const Usuario(id: 3, nombre: 'Nerea_K', porras: [], puntosAcumulados: 40),
+  usuarioActual,
+  const Usuario(id: 5, nombre: 'Hugo M.', porras: [], puntosAcumulados: 35),
+  const Usuario(id: 6, nombre: 'Aitana', porras: [], puntosAcumulados: 33),
+  const Usuario(id: 7, nombre: 'xavier.dev', porras: [], puntosAcumulados: 30),
+  const Usuario(id: 8, nombre: 'Iván G.', porras: [], puntosAcumulados: 27),
+  const Usuario(id: 9, nombre: 'Sara P.', porras: [], puntosAcumulados: 26),
+  const Usuario(id: 10, nombre: 'Dani_804', porras: [], puntosAcumulados: 19),
+];
+
+List<Usuario> get clasificacion =>
+    [...usuarios]..sort((a, b) => b.puntos.compareTo(a.puntos));
+</file>
+
 <file path="lib/features/pantalla_bienvenida.dart">
 import 'package:flutter/material.dart';
 import 'package:porra_dam/features/pantalla_principal.dart';
@@ -2786,6 +2786,122 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 </file>
 
+<file path="lib/features/clasificacion/clasificacion_screen.dart">
+import 'package:flutter/material.dart';
+import 'package:porra_dam/features/clasificacion/lista_clasificacion.dart';
+
+class PantallaClasificacion extends StatefulWidget {
+  const PantallaClasificacion({super.key});
+
+  @override
+  State<PantallaClasificacion> createState() => _PantallaClasificacionState();
+}
+
+class _PantallaClasificacionState extends State<PantallaClasificacion> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        
+        Expanded(
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            ),
+            child: Column(
+              children: [
+                const CabeceraPrincipal(),
+                const Expanded(child: ListaClasificacion())
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CabeceraPrincipal extends StatelessWidget {
+  const CabeceraPrincipal({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Clasificacion',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(
+                    color: Colors.grey
+                  )
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'General',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    Icon(Icons.keyboard_arrow_down,
+                        size: 18, color: Colors.black87),
+                  ],
+                ),
+              ),
+            ],
+          ),
+            Padding(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 52,
+                  child: Text('#', style: estiloCabecera),
+                ),
+                Expanded(
+                  child: Text('Participante', style: estiloCabecera),
+                ),
+                Text('Puntos', style: estiloCabecera),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+final estiloCabecera = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+  color: Colors.grey.shade600,
+);
+</file>
+
 <file path="lib/features/clasificacion/lista_clasificacion.dart">
 import 'package:flutter/material.dart';
 import 'package:porra_dam/data/usuario.dart';
@@ -3235,122 +3351,6 @@ class TarjetaResultado extends StatelessWidget {
     );
   }
 }
-</file>
-
-<file path="lib/features/clasificacion/clasificacion_screen.dart">
-import 'package:flutter/material.dart';
-import 'package:porra_dam/features/clasificacion/lista_clasificacion.dart';
-
-class PantallaClasificacion extends StatefulWidget {
-  const PantallaClasificacion({super.key});
-
-  @override
-  State<PantallaClasificacion> createState() => _PantallaClasificacionState();
-}
-
-class _PantallaClasificacionState extends State<PantallaClasificacion> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        
-        Expanded(
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-            ),
-            child: Column(
-              children: [
-                const CabeceraPrincipal(),
-                const Expanded(child: ListaClasificacion())
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CabeceraPrincipal extends StatelessWidget {
-  const CabeceraPrincipal({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Clasificacion',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(
-                    color: Colors.grey
-                  )
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'General',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 4),
-                    Icon(Icons.keyboard_arrow_down,
-                        size: 18, color: Colors.black87),
-                  ],
-                ),
-              ),
-            ],
-          ),
-            Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 52,
-                  child: Text('#', style: estiloCabecera),
-                ),
-                Expanded(
-                  child: Text('Participante', style: estiloCabecera),
-                ),
-                Text('Puntos', style: estiloCabecera),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-final estiloCabecera = TextStyle(
-  fontSize: 12,
-  fontWeight: FontWeight.w500,
-  color: Colors.grey.shade600,
-);
 </file>
 
 <file path="lib/features/jornada/jornada_screen.dart">

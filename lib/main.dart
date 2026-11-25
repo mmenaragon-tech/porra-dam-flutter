@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '/features/pantalla_bienvenida.dart';
+import 'package:porra_dam/data/cargar_datos.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await cargarDatos();
   runApp(const MyApp());
 }
 

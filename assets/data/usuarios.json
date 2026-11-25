@@ -1,0 +1,25 @@
+{
+  "usuarios": [
+    {"id": 1, "nombre": "LUCÍA R.", "puntosAcumulados": 45, "porras": []},
+    {"id": 2, "nombre": "PabloDev", "puntosAcumulados": 41, "porras": []},
+    {"id": 3, "nombre": "Nerea_K", "puntosAcumulados": 40, "porras": []},
+    {
+      "id": 0,
+      "nombre": "mcoma",
+      "puntosAcumulados": 16,
+      "porras": [
+        {"partidoId": 1, "golesLocal": 2, "golesVisitante": 1},
+        {"partidoId": 2, "golesLocal": 2, "golesVisitante": 0},
+        {"partidoId": 3, "golesLocal": 1, "golesVisitante": 0},
+        {"partidoId": 4, "golesLocal": 1, "golesVisitante": 1},
+        {"partidoId": 5, "golesLocal": 1, "golesVisitante": 0}
+      ]
+    },
+    {"id": 5, "nombre": "Hugo M.", "puntosAcumulados": 35, "porras": []},
+    {"id": 6, "nombre": "Aitana", "puntosAcumulados": 33, "porras": []},
+    {"id": 7, "nombre": "xavier.dev", "puntosAcumulados": 30, "porras": []},
+    {"id": 8, "nombre": "Iván G.", "puntosAcumulados": 27, "porras": []},
+    {"id": 9, "nombre": "Sara P.", "puntosAcumulados": 26, "porras": []},
+    {"id": 10, "nombre": "Dani_804", "puntosAcumulados": 19, "porras": []}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "equipos": [
+    {"nombre": "Atlético Madrid", "imagen": "assets/images/atm.webp"},
+    {"nombre": "Real Madrid", "imagen": "assets/images/rm.webp"},
+    {"nombre": "FC Barcelona", "imagen": "assets/images/blc.webp"},
+    {"nombre": "Villarreal CF", "imagen": "assets/images/villa.webp"},
+    {"nombre": "Sevilla FC", "imagen": "assets/images/sev.webp"},
+    {"nombre": "Real Sociedad", "imagen": "assets/images/rs.webp"},
+    {"nombre": "Betis", "imagen": "assets/images/betis.webp"},
+    {"nombre": "Valencia CF", "imagen": "assets/images/vlc.webp"},
+    {"nombre": "Athletic Club", "imagen": "assets/images/ath.webp"},
+    {"nombre": "Celta de Vigo", "imagen": "assets/images/celta.webp"}
+  ]
+}

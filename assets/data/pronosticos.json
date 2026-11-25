@@ -1,0 +1,9 @@
+{
+  "pronosticos": [
+    {"partidoId": 0, "golesLocal": 2, "golesVisitante": 1},
+    {"partidoId": 1, "golesLocal": 2, "golesVisitante": 0},
+    {"partidoId": 2, "golesLocal": 1, "golesVisitante": 0},
+    {"partidoId": 3, "golesLocal": 1, "golesVisitante": 1},
+    {"partidoId": 4, "golesLocal": 1, "golesVisitante": 0}
+  ]
+}

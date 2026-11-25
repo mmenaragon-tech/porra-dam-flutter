@@ -1,0 +1,14 @@
+{
+  "jornadas": [
+    {
+      "numero": 1,
+      "partidos": [
+        {"id": 1, "local": "Atlético Madrid", "visitante": "Real Madrid", "golesLocal": 2, "golesVisitante": 1, "fecha": "2026-08-15", "hora": "21:00"},
+        {"id": 2, "local": "FC Barcelona", "visitante": "Villarreal CF", "golesLocal": 3, "golesVisitante": 0, "fecha": "2026-08-16", "hora": "19:00"},
+        {"id": 3, "local": "Sevilla FC", "visitante": "Real Sociedad", "golesLocal": 1, "golesVisitante": 1, "fecha": "2026-08-16", "hora": "17:00"},
+        {"id": 4, "local": "Betis", "visitante": "Valencia CF", "golesLocal": 2, "golesVisitante": 1, "fecha": "2026-08-17", "hora": "21:00"},
+        {"id": 5, "local": "Athletic Club", "visitante": "Celta de Vigo", "golesLocal": 1, "golesVisitante": 0, "fecha": "2026-08-17", "hora": "19:00"}
+      ]
+    }
+  ]
+}

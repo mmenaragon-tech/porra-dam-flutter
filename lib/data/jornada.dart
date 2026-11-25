@@ -6,17 +6,12 @@ class Jornada {
 
   const Jornada({required this.partidos, required this.numero});
 
+  factory Jornada.fromJson(Map<String, dynamic> json) => Jornada(
+    numero: json['numero'].toString(),
+    partidos: [for (final p in json['partidos']) Partido.fromJson(p)],
+  );
+
 }
 
-final List<Jornada> jornadas = [
-  Jornada(
-    numero: '1',
-    partidos: [
-      partidos[0],
-      partidos[1],
-      partidos[2],
-      partidos[3],
-      partidos[4],
-    ],
-  ),
-];
+List<Jornada> jornadas = [];
+

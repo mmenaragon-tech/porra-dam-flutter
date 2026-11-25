@@ -37,6 +37,11 @@ class Porra {
     return total;
   }
 
+  factory Porra.fromJson(Map<String, dynamic> json) => Porra(
+    partido: partidos.firstWhere((p) => p.id == json['partidoId']),
+    golesLocal: json['golesLocal'],
+    golesVisitante: json['golesVisitante'],
+  );
   
 }
 
