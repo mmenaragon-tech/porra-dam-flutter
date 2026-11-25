@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:porra_dam/data/equipo_data.dart';
+import 'package:porra_dam/data/equipo.dart';
 import 'package:porra_dam/features/jornada/tarjeta_jornada.dart';
 
 class PantallaJornada extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:porra_dam/data/usuario_data.dart';
+import 'package:porra_dam/data/usuario.dart';
 
 class ListaClasificacion extends StatelessWidget {
   const ListaClasificacion({super.key});

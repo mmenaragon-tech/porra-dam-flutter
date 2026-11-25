@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:porra_dam/data/resultado_data.dart';
+import 'package:porra_dam/data/jornada.dart';
+import 'package:porra_dam/data/usuario.dart';
 import 'package:porra_dam/features/resultados/tarjeta_resultado.dart';
 
 class PantallaResultados extends StatelessWidget {
@@ -7,7 +8,8 @@ class PantallaResultados extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final total = resultados.fold<int>(0, (suma, r) => suma + r.puntos);
+    final Jornada jornada = jornadas[0];
+    final Usuario usuario = usuarioActual;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,14 +28,14 @@ class PantallaResultados extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                    itemCount: resultados.length,
+                    itemCount: jornada.partidos.length,
                     separatorBuilder: (_, __) =>
                         Divider(height: 1, color: Colors.grey.shade200),
                     itemBuilder: (_, i) =>
-                        TarjetaResultado(resultado: resultados[i]),
+                        TarjetaResultado(partido: jornada.partidos[i], usuario: usuario,),
                   ),
                 ),
-                TotalJornada(puntos: total),
+                TotalJornada(puntos: calcularPuntosJornada(usuarioActual, jornada)),
               ],
             ),
           ),
@@ -153,4 +155,19 @@ class CabeceraPrincipal extends StatelessWidget {
       ),
     );
   }
+}
+
+int calcularPuntosJornada(Usuario usuario, Jornada jornada) {
+  int total = 0;
+
+  for (final partido in jornada.partidos) {
+    for (final porra in usuario.porras) {
+      if (porra.partido.id == partido.id) {
+        total += porra.puntosContra(partido);
+        break;
+      }
+    }
+  }
+
+  return total;
 }

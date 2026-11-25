@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:porra_dam/data/resultado_data.dart';
-import 'package:porra_dam/data/partidos_data.dart';
-import 'package:porra_dam/data/equipo_data.dart';
+import 'package:porra_dam/data/partido.dart';
+import 'package:porra_dam/data/equipo.dart';
+import 'package:porra_dam/data/usuario.dart';
+import 'package:porra_dam/data/porra.dart';
 
 class TarjetaEquipo extends StatelessWidget {
   final Equipo equipo;
@@ -33,7 +34,7 @@ class TarjetaPartido extends StatelessWidget {
   final Partido partido;
   const TarjetaPartido({super.key, required this.partido});
 
-  Widget _fila(Equipo equipo, int goles) {
+  Widget _fila(Equipo equipo, int? goles) {
     return Row(
       children: [
         Expanded(child: TarjetaEquipo(equipo: equipo)),
@@ -58,13 +59,27 @@ class TarjetaPartido extends StatelessWidget {
 }
 
 class TarjetaResultado extends StatelessWidget {
-  final Resultado resultado;
-  const TarjetaResultado({super.key, required this.resultado});
+  final Partido partido;
+  final Usuario usuario;
+  const TarjetaResultado({super.key, required this.partido, required this.usuario});
+
+  Porra? get porra {
+    for (final p in usuario.porras) {
+      if (p.partido.local.nombre == partido.local.nombre &&
+          p.partido.visitante.nombre == partido.visitante.nombre) {
+        return p;
+      }
+    }
+    return null;
+  }
+
+  int get puntos => porra?.puntosContra(partido) ?? 0;
 
   @override
   Widget build(BuildContext context) {
-    final puntos = resultado.puntos;
-    final porra = resultado.porra;
+    
+    final puntos = this.puntos;
+    final porra = this.porra;
 
     final Color fondo;
     final Color texto;
@@ -96,7 +111,7 @@ class TarjetaResultado extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TarjetaPartido(partido: resultado.partido),
+                TarjetaPartido(partido: partido),
                 const SizedBox(height: 8),
                 Container(
                   padding:

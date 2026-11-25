@@ -3,7 +3,7 @@ import 'package:porra_dam/features/clasificacion/clasificacion_screen.dart';
 import 'package:porra_dam/features/jornada/jornada_screen.dart';
 import 'package:porra_dam/features/resultados/resultados_screen.dart';
 import 'package:porra_dam/utils/fondo_pantalla.dart';
-import 'package:porra_dam/data/usuario_data.dart';
+import 'package:porra_dam/data/usuario.dart';
 
 class PantallaPrincipal extends StatefulWidget {
   const new({super.key});
