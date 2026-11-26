@@ -13,4 +13,8 @@ Future<void> cargarDatos() async {
   final usuariosJson =
     jsonDecode(await rootBundle.loadString('assets/data/usuarios.json'));
   usuarios = [for (final u in usuariosJson['usuarios']) Usuario.fromJson(u)];
+
+  
 }
+
+final Future<void> datosCargados = cargarDatos();

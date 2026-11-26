@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:porra_dam/data/cargar_datos.dart';
 import 'package:porra_dam/router/app_router.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await cargarDatos();
+void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 

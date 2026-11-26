@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:porra_dam/features/jornada/tarjeta_jornada.dart';
 import 'package:porra_dam/data/jornada.dart';
+import 'package:porra_dam/data/cargar_datos.dart';
 
 class PantallaJornada extends StatefulWidget {
   const PantallaJornada({super.key});
@@ -12,44 +13,63 @@ class PantallaJornada extends StatefulWidget {
 class _PantallaJornadaState extends State<PantallaJornada> {
   @override
   Widget build(BuildContext context) {
-    final jornada = jornadas.first;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        CabeceraBienvenida(jornada: jornada),
-        Expanded(
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+    return FutureBuilder<void>(
+      future: datosCargados,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.white),
+          );
+        }
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text(
+              'Error al cargar los datos',
+              style: TextStyle(color: Colors.white),
             ),
-            child: Column(
-              children: [
-                Expanded(child: PartidosJornada(jornada: jornada)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      minimumSize: const Size.fromHeight(52),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(26),
+          );
+        }
+
+        final jornada = jornadas.first;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CabeceraBienvenida(jornada: jornada),
+            Expanded(
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(child: PartidosJornada(jornada: jornada)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          minimumSize: const Size.fromHeight(52),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(26),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'Guardar pronósticos',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Guardar pronósticos',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
