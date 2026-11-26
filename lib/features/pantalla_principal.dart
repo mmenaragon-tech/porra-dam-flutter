@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:porra_dam/utils/fondo_pantalla.dart';
-import 'package:porra_dam/data/usuario.dart';
 import 'package:porra_dam/data/cargar_datos.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:porra_dam/features/resultados/puntos_provider.dart';
 
 class PantallaPrincipal extends StatelessWidget {
   final Widget child;
@@ -41,10 +42,15 @@ class PantallaPrincipal extends StatelessWidget {
                 child: Center(
                   child: FutureBuilder<void>(
                     future: datosCargados,
-                    builder: (context, snapshot) =>
-                        snapshot.connectionState == ConnectionState.done
-                            ? CajaPuntos(puntos: usuarioActual.puntos)
-                            : const SizedBox.shrink(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState != ConnectionState.done) {
+                        return const SizedBox.shrink();
+                      }
+                      return Consumer(
+                        builder: (context, ref, _) =>
+                            CajaPuntos(puntos: ref.watch(puntosTotalesProvider)),
+                      );
+                    },
                   ),
                 ),
               ),

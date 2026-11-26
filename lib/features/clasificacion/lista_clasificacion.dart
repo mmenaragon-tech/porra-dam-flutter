@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:porra_dam/data/usuario.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:porra_dam/features/resultados/puntos_provider.dart';
 
-class ListaClasificacion extends StatelessWidget {
+class ListaClasificacion extends ConsumerWidget {
   const ListaClasificacion({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final lista = clasificacion;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final misPuntos = ref.watch(puntosTotalesProvider);
+    final actual = usuarioActual;
+
+    final lista = [
+      for (final u in usuarios)
+        (usuario: u, puntos: u.id == actual.id ? misPuntos : u.puntos),
+    ]..sort((a, b) => b.puntos.compareTo(a.puntos));
 
     return ListView.builder(
       itemCount: lista.length,
       itemBuilder: (context, index) {
-        final usuario = lista[index];
+        final fila = lista[index];
         return FilaClasificacion(
           posicion: index + 1,
-          usuario: usuario,
-          esActual: usuario == usuarioActual,
+          usuario: fila.usuario,
+          puntos: fila.puntos,
+          esActual: fila.usuario.id == actual.id,
         );
       },
     );
@@ -25,12 +34,14 @@ class ListaClasificacion extends StatelessWidget {
 class FilaClasificacion extends StatelessWidget {
   final int posicion;
   final Usuario usuario;
+  final int puntos;
   final bool esActual;
 
   const FilaClasificacion({
     super.key,
     required this.posicion,
     required this.usuario,
+    required this.puntos,
     required this.esActual,
   });
 

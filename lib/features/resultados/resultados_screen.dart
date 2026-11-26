@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:porra_dam/data/jornada.dart';
-import 'package:porra_dam/data/usuario.dart';
 import 'package:porra_dam/features/resultados/tarjeta_resultado.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:porra_dam/features/jornada/pronosticos_provider.dart';
+import 'package:porra_dam/features/resultados/puntos_provider.dart';
 
-class PantallaResultados extends StatelessWidget {
+class PantallaResultados extends ConsumerWidget {
   const PantallaResultados({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Jornada jornada = jornadas[0];
-    final Usuario usuario = usuarioActual;
+    final pronosticos = ref.watch(pronosticosProvider);
+    final totalJornada = jornada.partidos.fold<int>(
+      0,
+      (suma, p) => suma + puntosDe(pronosticos[p.id], p),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        
         Expanded(
           child: Container(
             clipBehavior: Clip.antiAlias,
@@ -32,10 +37,10 @@ class PantallaResultados extends StatelessWidget {
                     separatorBuilder: (_, __) =>
                         Divider(height: 1, color: Colors.grey.shade200),
                     itemBuilder: (_, i) =>
-                        TarjetaResultado(partido: jornada.partidos[i], usuario: usuario,),
+                        TarjetaResultado(partido: jornada.partidos[i]),
                   ),
                 ),
-                TotalJornada(puntos: calcularPuntosJornada(usuarioActual, jornada)),
+                TotalJornada(puntos: totalJornada),
               ],
             ),
           ),
@@ -155,19 +160,4 @@ class CabeceraPrincipal extends StatelessWidget {
       ),
     );
   }
-}
-
-int calcularPuntosJornada(Usuario usuario, Jornada jornada) {
-  int total = 0;
-
-  for (final partido in jornada.partidos) {
-    for (final porra in usuario.porras) {
-      if (porra.partido.id == partido.id) {
-        total += porra.puntosContra(partido);
-        break;
-      }
-    }
-  }
-
-  return total;
 }

@@ -36,6 +36,4 @@ List<Usuario> usuarios = [];
 
 Usuario get usuarioActual => usuarios.firstWhere((u) => u.id == 0);
 
-List<Usuario> get clasificacion =>
-    [...usuarios]..sort((a, b) => b.puntos.compareTo(a.puntos));
 

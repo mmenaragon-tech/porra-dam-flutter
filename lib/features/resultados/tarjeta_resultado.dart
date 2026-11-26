@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:porra_dam/data/partido.dart';
 import 'package:porra_dam/data/equipo.dart';
-import 'package:porra_dam/data/usuario.dart';
-import 'package:porra_dam/data/porra.dart';
+import 'package:porra_dam/features/jornada/pronosticos_provider.dart';
+import 'package:porra_dam/features/resultados/puntos_provider.dart';
 
 class TarjetaEquipo extends StatelessWidget {
   final Equipo equipo;
@@ -58,33 +59,18 @@ class TarjetaPartido extends StatelessWidget {
   }
 }
 
-class TarjetaResultado extends StatelessWidget {
+class TarjetaResultado extends ConsumerWidget {
   final Partido partido;
-  final Usuario usuario;
-  const TarjetaResultado({super.key, required this.partido, required this.usuario});
-
-  Porra? get porra {
-    for (final p in usuario.porras) {
-      if (p.partido.local.nombre == partido.local.nombre &&
-          p.partido.visitante.nombre == partido.visitante.nombre) {
-        return p;
-      }
-    }
-    return null;
-  }
-
-  int get puntos => porra?.puntosContra(partido) ?? 0;
+  const TarjetaResultado({super.key, required this.partido});
 
   @override
-  Widget build(BuildContext context) {
-    
-    final puntos = this.puntos;
-    final porra = this.porra;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final porra = ref.watch(pronosticosProvider.select((m) => m[partido.id]));
+    final puntos = puntosDe(porra, partido);
 
     final Color fondo;
     final Color texto;
     if (porra == null) {
-      // Sin porra: neutro, para no confundirlo con un fallo
       fondo = Colors.grey.shade200;
       texto = Colors.black54;
     } else if (puntos == 0) {
