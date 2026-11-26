@@ -1,62 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:porra_dam/data/equipo.dart';
 import 'package:porra_dam/data/partido.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:porra_dam/features/jornada/pronosticos_provider.dart';
 
-class TarjetaJornada extends StatefulWidget {
+class TarjetaJornada extends ConsumerWidget {
   final Partido partido;
   const TarjetaJornada({super.key, required this.partido});
 
   @override
-  State<TarjetaJornada> createState() => _TarjetaJornadaState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // select: esta tarjeta solo se reconstruye si cambia SU pronóstico
+    final pronostico =
+        ref.watch(pronosticosProvider.select((m) => m[partido.id])) ??
+            const Pronostico();
+    final notifier = ref.read(pronosticosProvider.notifier);
 
-class _TarjetaJornadaState extends State<TarjetaJornada> {
-
-  int _golesLocal = 0;
-  int _golesVisitante = 0;
-
-  void _cambiar({int? local, int? visitante}) {
-    setState(() {
-      _golesLocal = local ?? _golesLocal;
-      _golesVisitante = visitante ?? _golesVisitante;
-      if (_golesLocal >= 10) {
-        _golesLocal = _golesLocal - 1;
-      }
-      if (_golesVisitante >= 10) {
-        _golesVisitante = _golesVisitante - 1;
-      }
-    });
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: TarjetaPartido(equipo: partido.local)),
+              ContadorGoles(
+                goles: pronostico.golesLocal,
+                onChanged: (g) => notifier.cambiar(partido.id, local: g),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(child: TarjetaPartido(equipo: partido.visitante)),
+              ContadorGoles(
+                goles: pronostico.golesVisitante,
+                onChanged: (g) => notifier.cambiar(partido.id, visitante: g),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
-
-  @override
-Widget build(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-    child: Column(
-      children: [
-        Row(
-          children: [
-            Expanded(child: TarjetaPartido(equipo: widget.partido.local)),
-            ContadorGoles(
-              goles: _golesLocal,
-              onChanged: (g) => _cambiar(local: g),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(child: TarjetaPartido(equipo: widget.partido.visitante)),
-            ContadorGoles(
-              goles: _golesVisitante,
-              onChanged: (g) => _cambiar(visitante: g),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
 }
 
 class ContadorGoles extends StatelessWidget {

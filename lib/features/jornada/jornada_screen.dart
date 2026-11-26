@@ -56,7 +56,11 @@ class _PantallaJornadaState extends State<PantallaJornada> {
                             borderRadius: BorderRadius.circular(26),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Pronósticos guardados')),
+                          );
+                        },
                         child: const Text(
                           'Guardar pronósticos',
                           style: TextStyle(fontWeight: FontWeight.bold),
